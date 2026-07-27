@@ -1,18 +1,24 @@
 class Solution {
 public:
-    bool isPalindrome(string s) {
-        s.erase(
-            remove_if(s.begin(), s.end(), [](char c) { return !isalnum(c); }),
-            s.end());
-
-        transform(s.begin(), s.end(), s.begin(), ::tolower);
-
-        int i=0,j=s.length()-1;
-        while(i<j){
-            if(s[i]!=s[j]) return false;
-            i++;
-            j--;
+    bool checkpalindrome(string &str,int i, int j){
+        
+        if(i>=j){
+            return true;
         }
-        return true;
+        if(str[i]!=str[j] ){
+            return false;
+        }
+       return checkpalindrome(str,i+1,j-1);
+    }
+    bool isPalindrome(string s) {
+        int n = s.size();
+        string str="";
+        for(int i=0;i<n;i++){
+            if(isalnum(s[i])){
+                str.push_back(tolower(s[i]));
+            }
+        }
+        if(str=="")return true;
+        return checkpalindrome(str,0,str.size()-1);
     }
 };
