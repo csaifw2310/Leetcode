@@ -11,18 +11,19 @@
  */
 class Solution {
 public:
-    void ptraverse(TreeNode* root, vector<int>& ans){
-        if(root==nullptr){
-           return;
-        }
-         ans.push_back(root->val);
-         ptraverse(root->left,ans);
-         ptraverse(root->right,ans);
-    }
-
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int>ans;
-        ptraverse(root,ans);
+        if(root==nullptr) return ans;
+        stack<TreeNode* > st;
+        st.push(root);
+        while(!st.empty()){
+            root = st.top();
+            ans.push_back(root->val);
+            st.pop();
+            if(root->right!=nullptr) st.push(root->right);
+            if(root->left!=nullptr) st.push(root->left);
+            
+        }
         return ans;
     }
 };
